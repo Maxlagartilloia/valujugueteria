@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valu Juguetería - ¡Donde Comienza la Diversión!</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FFF9FB; /* Light Pink Background */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1575394383742-f8dde5270845?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            /* New gradient from logo colors */
+            background-image: linear-gradient(45deg, rgba(244, 63, 135, 0.7), rgba(74, 47, 140, 0.8));
+        }
+        .btn-primary {
+            background-color: #F43F87; /* Bright Pink from logo */
+            color: #ffffff;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            background-color: #DE3175; /* Darker Pink */
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            transition: background-color 0.3s ease;
+            font-weight: 700;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+        }
+        .welcome-bg {
+            background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .welcome-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .testimonials-bg {
+            background-color: #F3E8FF; /* Light Purple */
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        .bouncing-chevron {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+        .product-image-container {
+            height: 256px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 1rem;
+        }
+        .product-image-container img {
+            max-height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <!-- Brand Logo -->
+            <a href="#" onclick="showPage('home')" class="flex items-center">
+                <img src="https://i.postimg.cc/8PB0WXL4/401372259-688277063404297-8972479736332162955-n-removebg-preview.png" alt="Valu Juguetería Logo" class="h-16 w-auto">
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" onclick="showPage('home')" class="text-gray-600 hover:text-pink-500 transition font-semibold">Inicio</a>
+                <a href="#productos" class="text-gray-600 hover:text-pink-500 transition font-semibold">Productos</a>
+                <a href="#contacto" class="text-gray-600 hover:text-pink-500 transition font-semibold">Contacto</a>
+                <button onclick="showPage('checkout')" class="btn-primary flex items-center px-4 py-2 rounded-full space-x-2">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="hidden sm:inline">Carrito</span>
+                    <span id="cart-counter" class="bg-purple-800 text-white rounded-full h-5 w-5 text-xs flex items-center justify-center font-bold">0</span>
+                </button>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                 <button onclick="showPage('checkout')" class="bg-pink-500 text-white flex items-center px-3 py-2 rounded-full space-x-2 mr-4">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-counter-mobile" class="bg-purple-800 text-white rounded-full h-5 w-5 text-xs flex items-center justify-center font-bold">0</span>
+                </button>
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
+            <a href="#" onclick="showPage('home'); toggleMobileMenu();" class="block py-3 px-6 text-gray-700 hover:bg-pink-100 font-semibold">Inicio</a>
+            <a href="#productos" onclick="toggleMobileMenu()" class="block py-3 px-6 text-gray-700 hover:bg-pink-100 font-semibold">Productos</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="block py-3 px-6 text-gray-700 hover:bg-pink-100 font-semibold">Contacto</a>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <main id="home-page">
+        <!-- Hero Section -->
+        <section class="hero-section min-h-screen flex items-center justify-center relative text-white">
+            <div class="hero-overlay absolute inset-0"></div>
+            <div class="relative z-10 text-center p-6">
+                <h1 class="text-5xl md:text-7xl font-black mb-4 drop-shadow-lg" style="font-family: 'Montserrat', sans-serif;">¡Donde la Diversión Comienza!</h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 drop-shadow-md">Explora un mundo de imaginación y aventura con nuestra increíble selección de juguetes para todas las edades.</p>
+                <div class="space-x-4">
+                    <a href="#productos" class="btn-primary px-8 py-3 rounded-full text-lg shadow-lg">Ver Catálogo</a>
+                    <a href="#welcome" class="btn-secondary px-8 py-3 rounded-full text-lg shadow-lg">Sobre Nosotros</a>
+                </div>
+            </div>
+            <a href="#welcome" class="absolute bottom-10 text-white text-4xl bouncing-chevron">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <!-- Welcome Section -->
+        <section id="welcome" class="welcome-bg py-24">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="fade-in-section max-w-3xl mx-auto bg-black/20 backdrop-blur-sm p-8 rounded-2xl">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Bienvenidos a Valu Juguetería</h2>
+                    <p class="text-gray-200 text-lg">Creemos en el poder del juego. Por eso, seleccionamos cuidadosamente cada juguete para inspirar creatividad, fomentar el aprendizaje y, lo más importante, ¡garantizar horas de <span class="font-bold text-yellow-300">diversión sin fin!</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="productos" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">Nuestro Catálogo de Juguetes</h2>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Desde juegos de mesa para toda la familia hasta las figuras de acción más buscadas. ¡Encuentra el regalo perfecto!</p>
+                </div>
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Product cards will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="nosotros" class="testimonials-bg py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Lo que Dicen Nuestros Clientes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img src="https://placehold.co/40x40/FBCFE8/9D174D?text=LC" alt="Laura C." class="w-10 h-10 rounded-full mr-4">
+                            <div>
+                                <p class="font-bold text-gray-800">Laura Campos</p>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"¡Increíble variedad! Encontré exactamente el juguete que mi hijo quería y que no encontraba en ningún otro lado. El envío fue súper rápido."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img src="https://placehold.co/40x40/F3E8FF/581C87?text=JP" alt="Juan P." class="w-10 h-10 rounded-full mr-4">
+                            <div>
+                                <p class="font-bold text-gray-800">Juan Pérez</p>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"Excelente servicio al cliente. Me ayudaron por WhatsApp a elegir el juego de mesa perfecto para una reunión familiar. ¡Fue un éxito!"</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <img src="https://placehold.co/40x40/FEF9C3/B45309?text=MG" alt="Mariana G." class="w-10 h-10 rounded-full mr-4">
+                            <div>
+                                <p class="font-bold text-gray-800">Mariana Gómez</p>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"Los precios son muy competitivos y la calidad de los juguetes es fantástica. Mi hija está feliz con su nueva muñeca. ¡Volveré a comprar!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHECKOUT PAGE -->
+    <main id="checkout-page" class="hidden pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <h1 class="text-4xl font-bold text-gray-800 text-center mb-12">Finalizar Compra</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Left: Order Summary -->
+                <div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-4 border-b pb-4">
+                            <h2 class="text-2xl font-bold text-gray-800">Resumen de tu Carrito</h2>
+                            <button id="delete-order-btn" class="text-red-500 hover:text-red-700 font-semibold">
+                                <i class="fas fa-times-circle mr-1"></i> Vaciar Carrito
+                            </button>
+                        </div>
+                        <div id="checkout-summary" class="space-y-4">
+                            <!-- Summary items will be injected here -->
+                        </div>
+                        <div class="border-t pt-4 mt-4">
+                            <div class="flex justify-between items-center text-xl font-bold">
+                                <span>Total:</span>
+                                <span id="checkout-total" class="text-pink-500">$ 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right: Customer Data -->
+                <div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Tus Datos de Envío</h2>
+                        <form id="checkout-form" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                                <input type="text" id="name" name="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500" required>
+                            </div>
+                            <div>
+                                <label for="whatsapp" class="block text-sm font-medium text-gray-700">Número de WhatsApp</label>
+                                <input type="tel" id="whatsapp" name="whatsapp" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500" required>
+                            </div>
+                            <div>
+                                <label for="address" class="block text-sm font-medium text-gray-700">Dirección de Entrega</label>
+                                <textarea id="address" name="address" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500" required></textarea>
+                            </div>
+                            <button type="button" onclick="confirmOrderByWhatsApp()" class="w-full btn-primary py-3 rounded-lg text-lg mt-4">
+                                <i class="fab fa-whatsapp mr-2"></i> Confirmar Pedido por WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Brand -->
+                <div>
+                    <a href="#" onclick="showPage('home')" class="inline-block mb-4">
+                         <img src="https://i.postimg.cc/8PB0WXL4/401372259-688277063404297-8972479736332162955-n-removebg-preview.png" alt="Valu Juguetería Logo" class="h-20 w-auto mx-auto md:mx-0">
+                    </a>
+                    <p class="text-gray-500">Inspirando sonrisas y aventuras.</p>
+                    <div class="flex justify-center md:justify-start space-x-4 mt-4 text-xl">
+                        <a href="#" class="text-gray-500 hover:text-pink-500"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/573001234567?text=¡Hola!%20Quisiera%20consultar%20sobre%20un%20juguete." target="_blank" class="text-gray-500 hover:text-pink-500"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-800">Contacto</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><i class="fas fa-map-marker-alt mr-2 text-pink-500"></i> Bogotá, Colombia</li>
+                        <li><i class="fas fa-phone-alt mr-2 text-pink-500"></i> +57 300 123 4567</li>
+                        <li><i class="fas fa-envelope mr-2 text-pink-500"></i> contacto@valujugueteria.com</li>
+                    </ul>
+                </div>
+                <!-- Hours -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-800">Horario de Atención</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><strong>Lunes a Sábado:</strong> 9:00 AM – 7:00 PM</li>
+                        <li><strong>Domingo:</strong> 10:00 AM - 4:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Valu Juguetería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a href="https://wa.me/573001234567?text=¡Hola!%20Quisiera%20consultar%20sobre%20un%20juguete." target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden">
+        <div id="modal-overlay" class="absolute inset-0 bg-black/60 modal-overlay opacity-0"></div>
+        <div id="modal-content" class="modal-content bg-gray-100 rounded-xl shadow-2xl w-full max-w-4xl m-4 max-h-[90vh] overflow-y-auto relative transform scale-95 opacity-0">
+            <!-- Close Button -->
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8">
+                <!-- Image Gallery -->
+                <div>
+                    <div class="mb-4">
+                        <img id="main-product-image" src="" alt="Product Image" class="w-full h-auto max-h-96 object-contain rounded-lg bg-white p-4 shadow-sm">
+                    </div>
+                    <div id="thumbnail-gallery" class="grid grid-cols-5 gap-2">
+                        <!-- Thumbnails will be injected here -->
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="flex flex-col">
+                    <h2 id="modal-product-name" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2">(+250 reseñas)</span>
+                    </div>
+                    <p id="modal-product-price" class="text-4xl font-black text-pink-500 mb-4"></p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-gray-700 mb-2">Lo que tienes que saber de este producto:</h4>
+                        <ul id="modal-product-desc" class="list-disc list-inside text-gray-600 space-y-1">
+                            <!-- Description points will be injected here -->
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-auto pt-6 border-t">
+                        <button id="modal-add-to-cart-btn" class="w-full btn-primary py-3 rounded-lg text-lg">
+                            <i class="fas fa-cart-plus mr-2"></i> Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- DATA ---
+        const products = [
+            { id: 'MCO19641963', name: 'Blue Orange Spot It!', price: 25450, img: 'https://http2.mlstatic.com/D_NQ_NP_994599-MCO70592996930_072023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_994599-MCO70592996930_072023-O.webp', 'https://http2.mlstatic.com/D_NQ_NP_759978-MCO70592996929_072023-O.webp'], desc: ['Ideal para grupos grandes.', 'Apto para niños y adultos.', 'Fomenta la agilidad mental.'] },
+            { id: 'NEW004', name: 'Asmodee Dobble Clásico', price: 31594, img: 'https://http2.mlstatic.com/D_NQ_NP_622809-MCO70593433709_072023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_622809-MCO70593433709_072023-O.webp'], desc: ['Juego de velocidad y observación.', '55 cartas, 8 símbolos por carta.', 'Más de 50 símbolos en total.'] },
+            { 
+                id: 'NEW005', 
+                name: 'Iokus Agilizate', 
+                price: 29800, 
+                img: 'https://http2.mlstatic.com/D_NQ_NP_821996-MCO53173132961_012023-O.webp', 
+                images: [
+                    'https://http2.mlstatic.com/D_NQ_NP_821996-MCO53173132961_012023-O.webp', 
+                    'https://http2.mlstatic.com/D_NQ_NP_799793-MCO53173132962_012023-O.webp', 
+                    'https://http2.mlstatic.com/D_NQ_NP_949512-MCO53173132963_012023-O.webp'
+                ], 
+                desc: ['Ideal para grupos grandes, hasta 10 jugadores.', 'Apto para niños desde 5 años y adultos.', 'Perfecto para desarrollar la memoria.'] 
+            },
+            { id: 'NEW006', name: 'Pop It Electrónico', price: 49900, img: 'https://i.postimg.cc/pVSpWJ0L/D-Q-NP-2-X-884617-MLU72836358887-112023-R.webp', images: ['https://i.postimg.cc/pVSpWJ0L/D-Q-NP-2-X-884617-MLU72836358887-112023-R.webp'], desc: ['Juego antiestrés con luces y sonidos.', 'Varios modos de juego.', 'Mejora la concentración y reflejos.'] },
+            { id: 'NEW007', name: 'Mascota Virtual Tamagotchi', price: 39900, img: 'https://http2.mlstatic.com/D_NQ_NP_799793-MCO53173132962_012023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_799793-MCO53173132962_012023-O.webp'], desc: ['Cuida de tu propia mascota digital.', 'Aliméntala, juega y cuídala.', 'El clásico de los 90, ahora renovado.'] },
+            { id: 'NEW008', name: 'Juliana Diseña tus Uñas', price: 55900, img: 'https://i.postimg.cc/Wp50MZXB/D-Q-NP-2-X-760731-MLA50496450763-062022-R.webp', images: ['https://i.postimg.cc/Wp50MZXB/D-Q-NP-2-X-760731-MLA50496450763-062022-R.webp'], desc: ['Set completo para decorar uñas.', 'Incluye esmaltes, brillos y stickers.', 'Ideal para una tarde de spa y creatividad.'] },
+            { id: 'NEW003', name: 'Juliana Decora Tortas - Juego de Masa', price: 59900, img: 'https://i.postimg.cc/283hT5tV/D-Q-NP-2-X-916647-MLA50496469663-062022-R.webp', images: ['https://i.postimg.cc/283hT5tV/D-Q-NP-2-X-916647-MLA50496469663-062022-R.webp'], desc: ['Crea y decora tus propias tortas.', 'Incluye masas de colores y moldes.', 'Fomenta la creatividad y la motricidad.'] },
+            { id: 'MCO1367006817', name: 'Juego De Mesa Hasbro Gaming Jenga Clásico', price: 62900, img: 'https://http2.mlstatic.com/D_NQ_NP_934979-MCO53969106292_022023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_934979-MCO53969106292_022023-O.webp'], desc: ['El clásico juego de equilibrio.', 'Incluye 54 bloques de madera.', 'Para 1 o más jugadores.'] },
+            { id: 'MCO913072212', name: 'Juego De Mesa Uno', price: 16900, img: 'https://http2.mlstatic.com/D_NQ_NP_962839-MCO49382293427_032022-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_962839-MCO49382293427_032022-O.webp'], desc: ['El juego de cartas número uno.', 'Diversión para toda la familia.', 'Deshazte de tus cartas antes que nadie.'] },
+            { id: 'MCO1297921900', name: 'Juego De Cartas Monopoly Deal', price: 34900, img: 'https://http2.mlstatic.com/D_NQ_NP_992996-MCO52931326490_122022-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_992996-MCO52931326490_122022-O.webp'], desc: ['Toda la diversión de Monopoly en un juego rápido de cartas.', 'Colecciona 3 sets de propiedades para ganar.', 'Para 2 a 5 jugadores.'] },
+            { id: 'MCO1510813859', name: 'Juego De Mesa ¿qué Dijooo?', price: 74900, img: 'https://http2.mlstatic.com/D_NQ_NP_786762-MCO69603708493_052023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_786762-MCO69603708493_052023-O.webp'], desc: ['El divertido juego de leer los labios.', 'Horas de risa garantizadas.', 'Ideal para fiestas y reuniones.'] },
+            { id: 'MCO1364214214', name: 'Juego Twister', price: 72900, img: 'https://http2.mlstatic.com/D_NQ_NP_983193-MCO53909995180_022023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_983193-MCO53909995180_022023-O.webp'], desc: ['El juego que te enreda.', 'Sigue las instrucciones de la ruleta.', 'El último jugador en pie gana.'] },
+            { id: 'MCO641603598', name: 'Juego De Mesa Catan', price: 219900, img: 'https://http2.mlstatic.com/D_NQ_NP_998598-MCO70593433722_072023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_998598-MCO70593433722_072023-O.webp'], desc: ['Coloniza la isla de Catan.', 'Comercia, construye y establece tu dominio.', 'Un clásico de la estrategia.'] },
+            { id: 'MCO1372895690', name: 'Juego De Mesa Risk', price: 169900, img: 'https://http2.mlstatic.com/D_NQ_NP_786936-MCO54178691549_032023-O.webp', images: ['https://http2.mlstatic.com/D_NQ_NP_786936-MCO54178691549_032023-O.webp'], desc: ['El juego de la conquista del mundo.', 'Lidera tus ejércitos a la victoria.', 'Estrategia, diplomacia y suerte.'] }
+        ];
+
+        // --- STATE ---
+        let cart = {};
+
+        // --- DOM ELEMENTS ---
+        const pages = document.querySelectorAll('main');
+        const productGrid = document.getElementById('product-grid');
+        const cartCounter = document.getElementById('cart-counter');
+        const cartCounterMobile = document.getElementById('cart-counter-mobile');
+        const checkoutSummary = document.getElementById('checkout-summary');
+        const checkoutTotal = document.getElementById('checkout-total');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const deleteOrderBtn = document.getElementById('delete-order-btn');
+        // Modal elements
+        const productModal = document.getElementById('product-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const mainProductImage = document.getElementById('main-product-image');
+        const thumbnailGallery = document.getElementById('thumbnail-gallery');
+        const modalProductName = document.getElementById('modal-product-name');
+        const modalProductPrice = document.getElementById('modal-product-price');
+        const modalProductDesc = document.getElementById('modal-product-desc');
+        const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
+
+        // --- RENDER FUNCTIONS ---
+        function renderProducts() {
+            productGrid.innerHTML = products.map(p => `
+                <div class="card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col" onclick="showProductDetail('${p.id}')">
+                    <div class="product-image-container">
+                        <img src="${p.img}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/200x200/F3E8FF/4A2F8C?text=Imagen+no+disponible';">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 flex-grow">${p.name}</h3>
+                        <p class="text-xl font-bold text-purple-800 my-2">$ ${p.price.toLocaleString('es-CO')}</p>
+                        <button onclick="event.stopPropagation(); addToCart('${p.id}');" class="btn-primary w-full mt-2 py-2 rounded-lg font-bold z-10 relative">Añadir al Carrito</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCart() {
+            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+            cartCounterMobile.textContent = totalItems;
+            renderCheckoutSummary();
+        }
+
+        function renderCheckoutSummary() {
+            if (Object.keys(cart).length === 0) {
+                checkoutSummary.innerHTML = `<p class="text-gray-500 text-center py-8">Tu carrito está vacío.</p>`;
+                checkoutTotal.textContent = `$ 0`;
+                return;
+            }
+
+            let total = 0;
+            checkoutSummary.innerHTML = Object.values(cart).map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return ''; // Failsafe if product not found
+                const itemTotal = product.price * item.quantity;
+                total += itemTotal;
+                return `
+                    <div class="flex justify-between items-center py-2">
+                        <div class="flex items-center space-x-3 flex-1">
+                            <img src="${product.img}" class="w-16 h-16 rounded-md object-contain bg-white p-1" onerror="this.onerror=null;this.src='https://placehold.co/64x64/F3E8FF/4A2F8C?text=N/A';">
+                            <div>
+                                <p class="font-bold text-sm">${product.name}</p>
+                                <p class="text-xs text-gray-600">$ ${product.price.toLocaleString('es-CO')}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 bg-gray-200 rounded-full font-bold text-gray-700">-</button>
+                            <span class="w-4 text-center font-bold">${item.quantity}</span>
+                            <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 bg-gray-200 rounded-full font-bold text-gray-700">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            checkoutTotal.textContent = `$ ${total.toLocaleString('es-CO')}`;
+        }
+
+        // --- LOGIC & EVENT HANDLERS ---
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.toggle('hidden', page.id !== `${pageId}-page`);
+            });
+            window.scrollTo(0, 0);
+            if (pageId === 'checkout') {
+                renderCart();
+            }
+        }
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function addToCart(productId) {
+            if (cart[productId]) {
+                cart[productId].quantity++;
+            } else {
+                cart[productId] = { id: productId, quantity: 1 };
+            }
+            renderCart();
+        }
+        
+        function updateQuantity(productId, change) {
+            if (cart[productId]) {
+                cart[productId].quantity += change;
+                if (cart[productId].quantity <= 0) {
+                    delete cart[productId];
+                }
+                renderCart();
+            }
+        }
+
+        function emptyCart() {
+            cart = {};
+            renderCart();
+        }
+        
+        function confirmOrderByWhatsApp() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('whatsapp').value;
+            const address = document.getElementById('address').value;
+
+            if (!name || !phone || !address) {
+                alert('Por favor, completa todos tus datos para continuar.');
+                return;
+            }
+            
+            if (Object.keys(cart).length === 0) {
+                alert('Tu carrito está vacío. Añade productos para continuar.');
+                return;
+            }
+
+            let message = '¡Hola Valu Juguetería! Quisiera hacer el siguiente pedido:\n\n';
+            let total = 0;
+
+            Object.values(cart).forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                message += `${item.quantity} x ${product.name} - $ ${(product.price * item.quantity).toLocaleString('es-CO')}\n`;
+                total += product.price * item.quantity;
+            });
+
+            message += `\n*Total del Pedido: $ ${total.toLocaleString('es-CO')}*\n\n`;
+            message += `*Mis datos de envío:*\n`;
+            message += `Nombre: ${name}\n`;
+            message += `Teléfono: ${phone}\n`;
+            message += `Dirección: ${address}`;
+
+            const whatsappUrl = `https://wa.me/573001234567?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // --- MODAL LOGIC ---
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            mainProductImage.src = product.images[0] || product.img;
+            
+            thumbnailGallery.innerHTML = (product.images || [product.img]).map(imgUrl => `
+                <img src="${imgUrl}" class="w-full h-16 object-contain rounded-md cursor-pointer border-2 border-transparent hover:border-pink-500 bg-white p-1" onclick="changeMainImage(this, '${imgUrl}')">
+            `).join('');
+            
+            // Highlight the first thumbnail
+            setTimeout(() => {
+                const firstThumbnail = thumbnailGallery.querySelector('img');
+                if(firstThumbnail) firstThumbnail.classList.replace('border-transparent', 'border-pink-500');
+            }, 0);
+
+
+            modalProductName.textContent = product.name;
+            modalProductPrice.textContent = `$ ${product.price.toLocaleString('es-CO')}`;
+            modalProductDesc.innerHTML = product.desc.map(d => `<li>${d}</li>`).join('');
+            
+            modalAddToCartBtn.onclick = () => {
+                addToCart(product.id);
+                hideProductDetail();
+            };
+
+            productModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalOverlay.classList.remove('opacity-0');
+                modalContent.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+        }
+
+        function hideProductDetail() {
+            modalOverlay.classList.add('opacity-0');
+            modalContent.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                productModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        function changeMainImage(thumbnailElement, imgUrl) {
+            mainProductImage.src = imgUrl;
+            // Manage active state for thumbnails
+            const allThumbnails = thumbnailGallery.querySelectorAll('img');
+            allThumbnails.forEach(thumb => thumb.classList.replace('border-pink-500', 'border-transparent'));
+            thumbnailElement.classList.replace('border-transparent', 'border-pink-500');
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderCart();
+
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            deleteOrderBtn.addEventListener('click', emptyCart);
+            
+            // Modal close events
+            closeModalBtn.addEventListener('click', hideProductDetail);
+            modalOverlay.addEventListener('click', hideProductDetail);
+
+            const faders = document.querySelectorAll('.fade-in-section');
+            const appearOptions = { threshold: 0.3, rootMargin: "0px 0px -50px 0px" };
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+
+    </script>
+</body>
+</html>
